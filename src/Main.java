@@ -1,20 +1,40 @@
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
 
-        IntegerList stringList = new IntegerListImpl(10);
-        stringList.add(1);
-        stringList.add(2);
-        stringList.add(3);
-        stringList.add(5);
-        System.out.println(stringList.toString());
-        System.out.println();
+        /**задаю размер массива*/
 
-        stringList.add(3, 4);
-        System.out.println(stringList.toString());
-        System.out.println();
+              /**создаю объекты*/
+              IntegerList integerList1 = new IntegerListImpl(100_000);
+             Random r = new Random();
 
-        stringList.remove(4);
-        System.out.println(stringList.toString());
+              /**заполняю массив случайными числами от 1 до 1 000 000 включительно*/
+              for (int i = 0; i < 100_000; i++) {
+                 integerList1.add(r.nextInt(1_000_000) + 1);
+              }
+           System.out.println("stringList = " + integerList1);
+              System.out.println();
+
+
+               /**создаю копии исходного массива*/
+                IntegerList integerList2 = new IntegerListImpl(100_000);
+               IntegerList integerList3 = new IntegerListImpl(100_000);
+               integerList1.integerListCopy(integerList2);
+                integerList1.integerListCopy(integerList3);
+
+              /**выполняется поиск элемента и замер времени для разных способов сортировки*/
+              long start1 = System.currentTimeMillis();
+              System.out.println(integerList1.contains(85644,"Bubbles"));
+               System.out.println(System.currentTimeMillis() - start1);
+
+                long start2 = System.currentTimeMillis();
+                System.out.println(integerList1.contains(85644,"Selection"));
+               System.out.println(System.currentTimeMillis() - start2);
+
+                long start3 = System.currentTimeMillis();
+                System.out.println(integerList1.contains(85644,"Inspection"));
+               System.out.println(System.currentTimeMillis() - start3);
 
     }
 }
